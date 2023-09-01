@@ -7,8 +7,7 @@
                         <div class="max-w-md">
                             <h1 class="text-3xl font-bold">This is Our Home Page</h1>
                             <p class="py-6">Welcome to Home Page</p>
-                            <button class="btn btn-primary">Get Started</button> <br>
-
+                            <button class="btn btn-primary">Get Started</button> <br />
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,17 @@
 <template>
-    <div
-        class="w-full p-4 text-center bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">About Page</h5>
-        <p class="mb-5 text-base text-gray-500 sm:text-lg dark:text-gray-400">This is our About page</p>
+    <div class="min-h-screen flex items-center">
+        <div class="w-full">
+            <div class="card p-10 md:w-3/4 mx-auto lg:w-1/3">
+                <div class="hero min-h-screen bg-base-200">
+                    <div class="hero-content text-center">
+                        <div class="max-w-md">
+                            <h1 class="text-3xl font-bold">About Page</h1>
+                            <p class="py-6">Welcome to About Page</p>
+                            <button class="btn btn-primary">Get Started</button> <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
