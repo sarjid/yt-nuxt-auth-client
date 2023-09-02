@@ -1,11 +1,16 @@
 <script setup>
+const auth = useAuthStore();
 const form = reactive({
     email: null,
     password: null,
 });
-
-const handleSubmit = () => {
-    console.log(form);
+const errors = ref([]);
+const handleSubmit = async () => {
+    try {
+        await auth.login(form);
+    } catch (error) {
+        errors.value = error.data.errors;
+    }
 };
 </script>
 
@@ -18,16 +23,21 @@ const handleSubmit = () => {
                     <div class="mb-2">
                         <FormLabel for="email">Your Email</FormLabel>
                         <FormTextInput id="email" type="email" placeholder="email address" v-model="form.email" />
+
+                        <span v-if="errors.email" class="text-red-500">{{ errors.email[0] }}</span>
                     </div>
                     <div class="mb-2">
                         <FormLabel for="password">Your Password</FormLabel>
                         <FormTextInput id="password" type="password" placeholder="password" v-model="form.password" />
+
+                        <span v-if="errors.password" class="text-red-500">{{
+                            errors.password[0]
+                        }}</span>
                     </div>
                     <div class="flex items-start mb-6">
                         <div class="flex items-center h-5">
                             <input id="remember" type="checkbox" value=""
-                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                                required />
+                                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
                         </div>
 
                         <FormLabel class="ml-2" for="remember">Remember me</FormLabel>
