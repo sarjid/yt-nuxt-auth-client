@@ -1,7 +1,14 @@
 export const useAuthStore = defineStore("auth", {
-  state: () => ({ count: 0, name: "Eduardo" }),
+  state: () => ({
+    user: {},
+  }),
+
+  persist: {
+    paths: ["user"],
+  },
+
   getters: {
-    doubleCount: (state) => state.count * 2,
+    getUser: (state) => state.user,
   },
   actions: {
     async login(formData) {
@@ -10,10 +17,48 @@ export const useAuthStore = defineStore("auth", {
           method: "POST",
           body: { ...formData },
         });
-        console.log("pinia_auth_store", data);
+        this.commonSetter(data);
       } catch (error) {
         throw error;
       }
+    },
+
+    async register(formData) {
+      try {
+        const { data } = await $fetch("http://localhost:8000/api/register", {
+          method: "POST",
+          body: { ...formData },
+        });
+        this.commonSetter(data);
+      } catch (error) {
+        throw error;
+      }
+    },
+
+    async logout() {
+      const tokenStore = useTokenStore();
+      try {
+        const res = await $fetch("http://localhost:8000/api/logout", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${tokenStore.getToken}`,
+          },
+          // body: { ...formData },
+        });
+
+        tokenStore.removeToken();
+        console.log(res);
+      } catch (error) {
+        throw error;
+      }
+    },
+
+    commonSetter(data) {
+      const tokenStore = useTokenStore();
+      tokenStore.setToken(data.token);
+      this.user = data.user;
+      return navigateTo("/dashboard");
     },
   },
 });

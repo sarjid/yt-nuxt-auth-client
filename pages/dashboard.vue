@@ -1,3 +1,11 @@
+<script setup>
+const auth = useAuthStore();
+
+definePageMeta({
+    middleware: ["auth"],
+});
+</script>
+
 <template>
     <div class="min-h-screen flex items-center">
         <div class="w-full">
@@ -7,8 +15,12 @@
                         <div class="max-w-md">
                             <h1 class="text-3xl font-bold">Dashboard Page</h1>
                             <p class="py-6">Welcome to Dashboard Page</p>
-                            <p class="py-2">Name: <strong>My Tst name</strong></p>
-                            <p class="py-2">Email: <strong>My Tst name</strong></p>
+                            <p class="py-2">
+                                Name: <strong>{{ auth.getUser?.name }}</strong>
+                            </p>
+                            <p class="py-2">
+                                Email: <strong>{{ auth.getUser?.email }}</strong>
+                            </p>
                         </div>
                     </div>
                 </div>
